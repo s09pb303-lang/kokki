@@ -3,44 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>マイケル社会道場〜国旗あてゲーム編〜</title>
+    <title>マイケル社会道場</title>
     <style>
-        :root { --primary: #0D47A1; --secondary: #2196F3; --error: #F44336; --dojo-black: #1A1A1A; }
-        body { font-family: 'Hiragino Kaku Gothic ProN', Arial, sans-serif; background-color: #f8f8f8; margin: 0; display: flex; flex-direction: column; align-items: center; user-select: none; }
+        :root { --primary: #4CAF50; --secondary: #2196F3; --error: #F44336; --dojo-black: #1A1A1A; }
+        body { font-family: 'Hiragino Kaku Gothic ProN', sans-serif; background-color: #f8f8f8; margin: 0; display: flex; flex-direction: column; align-items: center; user-select: none; }
         .dojo-title { font-family: 'Kanteiryu', 'HG勘亭流', 'Yu Mincho', serif; font-weight: 900; color: var(--dojo-black); font-size: 56px; margin: 10px 0; text-align: center; line-height: 1.1; letter-spacing: -4px; transform: scaleY(1.1); padding: 10px; }
         .sub-title { font-family: sans-serif; font-size: 22px; font-weight: bold; color: #333; letter-spacing: 1px; display: block; margin-top: 5px; transform: scaleY(0.9); }
         
-        /* いつものマイケル道場のコンテナサイズと角丸に戻しました */
         #game-container { position: relative; width: 95%; max-width: 700px; background: white; margin-top: 5px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 50px 20px 20px 20px; text-align: center; display: none; }
         .home-back-btn { position: absolute; top: 15px; left: 15px; background: #eee; color: #666; border: none; padding: 5px 12px; font-size: 14px; border-radius: 5px; cursor: pointer; }
+        
         #header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 10px; }
         #timer { font-size: 28px; font-weight: bold; color: var(--error); background: #FFEBEE; padding: 4px 15px; border-radius: 50px; }
         #stats { font-size: 16px; font-weight: bold; color: #555; }
         
-        /* 国旗エリア：いつもの角丸枠（水色）にしつつ、高さだけしっかり確保 */
-        #question-display { display: flex; flex-direction: column; justify-content: center; align-items: center; background: #E3F2FD; border: 2px solid #64B5F6; border-radius: 15px; padding: 20px; margin: 15px 0; min-height: 300px; overflow: hidden; }
-        #question-type { font-size: 16px; color: var(--primary); font-weight: bold; margin-bottom: 10px; border: 1px solid var(--primary); padding: 2px 10px; border-radius: 20px; background: white;}
+        /* 🌟 巨大国旗表示エリア */
+        .flag-display { font-size: 180px; line-height: 1.2; margin: 10px auto 20px auto; display: flex; justify-content: center; align-items: center; min-height: 200px; filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.15)); }
         
-        /* 国旗：巨大サイズ（スマホでもはみ出さないギリギリの最大値） */
-        #flag-image { font-size: 240px; line-height: 1.1; margin: 0; }
-        
-        /* 選択肢：いつもの青くて立体的なボタンに戻しました */
         #choices-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
-        .choice-btn { background-color: var(--secondary); color: white; border: none; padding: 15px; font-size: 22px; font-weight: bold; border-radius: 10px; cursor: pointer; box-shadow: 0 4px #1976D2; transition: transform 0.1s; }
+        .choice-btn { background-color: var(--secondary); color: white; border: none; padding: 15px; font-size: 24px; font-weight: bold; border-radius: 10px; cursor: pointer; box-shadow: 0 4px #1976D2; transition: transform 0.1s; }
         .choice-btn:active { transform: translateY(4px); box-shadow: none; }
         .choice-btn.wrong { background-color: #BDBDBD; box-shadow: 0 4px #9E9E9E; }
         
         #start-screen, #result-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; }
         .course-btns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
-        .big-btn { padding: 20px 40px; font-size: 24px; font-weight: bold; background: var(--primary); color: white; border: none; border-radius: 50px; box-shadow: 0 6px #0D47A1; cursor: pointer; }
-        #result-screen { display: none; padding: 20px; text-align: center; overflow-y: auto; }
-        .comment-box { background: #e3f2fd; padding: 20px; border-radius: 15px; margin: 20px 0; font-size: 20px; line-height: 1.6; color: var(--primary); border: 1px solid #bbdefb; max-width: 550px; display: inline-block; text-align: left;}
+        .big-btn { padding: 20px 40px; font-size: 24px; font-weight: bold; background: var(--primary); color: white; border: none; border-radius: 50px; box-shadow: 0 6px #388E3C; cursor: pointer; }
+        .big-btn:active { transform: translateY(6px); box-shadow: none; }
+        
+        #result-screen { display: none; padding: 20px; text-align: center; }
+        .comment-box { background: #f0f7ff; padding: 20px; border-radius: 15px; margin: 20px 0; font-size: 20px; line-height: 1.6; color: #1a3a5a; border: 1px solid #d0e0f0; max-width: 550px; }
     </style>
 </head>
 <body>
     <div id="start-screen">
         <h1 class="dojo-title">マイケル社会道場<br><span class="sub-title" id="app-subtitle">〜国旗あてゲーム編〜</span></h1>
-        <p style="font-size: 20px; color: #666;">世界の国旗、いくつわかるかな？</p>
+        <p style="font-size: 20px; color: #666;">コースをえらんで修行開始！</p>
         <div class="course-btns">
             <button class="big-btn" onclick="startGame(1)">1分コース</button>
             <button class="big-btn" onclick="startGame(3)">3分コース</button>
@@ -48,172 +45,229 @@
             <button class="big-btn" onclick="startGame(10)">10分コース</button>
         </div>
     </div>
+
     <div id="game-container">
-        <button class="home-back-btn" onclick="if(confirm('修行を中断して戻りますか？')) location.reload();">× やめる</button>
+        <button class="home-back-btn" onclick="if(confirm('修行を中断して、最初の画面にもどりますか？')) location.reload();">× やめる</button>
         <div id="header">
             <div id="stats">正解: <span id="correct-count">0</span> | ミス: <span id="incorrect-count">0</span></div>
             <div id="timer">--:--</div>
         </div>
-        <div id="question-display">
-            <div id="question-type">この国旗はどの国？</div>
-            <div id="flag-image">🌐</div>
-        </div>
+        
+        <div class="flag-display" id="flag-display">🏳️</div>
+        
         <div id="choices-grid"></div>
         <div id="feedback" style="margin-top: 10px; height: 30px; font-size: 20px; font-weight: bold;"></div>
     </div>
+
     <div id="result-screen">
         <div style="font-size: 20px; color: #666; font-weight: bold;" id="display-course">--分コース</div>
         <div style="font-size: 48px; color: var(--dojo-black); font-weight: 900;">修行終了！</div>
-        <div id="result-date" style="font-size: 18px; color: #888; margin-top: 5px; font-weight: bold;"></div>
         <div id="final-stats" style="font-size: 26px; font-weight: bold; margin: 15px 0;"></div>
-        <div class="comment-box" id="result-comment"></div><br>
-        <button class="big-btn" style="background: var(--secondary); box-shadow: 0 6px #1976D2;" onclick="location.reload()">もう一度 修行する</button>
+        <div class="comment-box" id="result-comment"></div>
+        <button class="big-btn" style="background: var(--secondary); box-shadow: 0 6px #1565C0;" onclick="location.reload()">もう一度 修行する</button>
     </div>
 
     <script>
-        let timeLeft = 0, initialTime = 0, score = 0, mistakes = 0;
-        let currentQ = null, gameActive = false, timerId = null, audioCtx = null, deck = [];
+        // 世界196カ国の完全データリスト
+        const countries = [
+            { name: 'アイスランド', code: 'IS' }, { name: 'アイルランド', code: 'IE' }, { name: 'アゼルバイジャン', code: 'AZ' }, { name: 'アフガニスタン', code: 'AF' },
+            { name: 'アメリカ合衆国', code: 'US' }, { name: 'アラブ首長国連邦', code: 'AE' }, { name: 'アルジェリア', code: 'DZ' }, { name: 'アルゼンチン', code: 'AR' },
+            { name: 'アルバニア', code: 'AL' }, { name: 'アルメニア', code: 'AM' }, { name: 'アンゴラ', code: 'AO' }, { name: 'アンティグア・バーブーダ', code: 'AG' },
+            { name: 'アンドラ', code: 'AD' }, { name: 'イエメン', code: 'YE' }, { name: 'イギリス', code: 'GB' }, { name: 'イスラエル', code: 'IL' },
+            { name: 'イタリア', code: 'IT' }, { name: 'イラク', code: 'IQ' }, { name: 'イラン', code: 'IR' }, { name: 'インド', code: 'IN' },
+            { name: 'インドネシア', code: 'ID' }, { name: 'ウガンダ', code: 'UG' }, { name: 'ウクライナ', code: 'UA' }, { name: 'ウズベキスタン', code: 'UZ' },
+            { name: 'ウルグアイ', code: 'UY' }, { name: 'エクアドル', code: 'EC' }, { name: 'エジプト', code: 'EG' }, { name: 'エストニア', code: 'EE' },
+            { name: 'エスワティニ', code: 'SZ' }, { name: 'エチオピア', code: 'ET' }, { name: 'エリトリア', code: 'ER' }, { name: 'エルサルバドル', code: 'SV' },
+            { name: 'オーストラリア', code: 'AU' }, { name: 'オーストリア', code: 'AT' }, { name: 'オマーン', code: 'OM' }, { name: 'オランダ', code: 'NL' },
+            { name: 'ガーナ', code: 'GH' }, { name: 'カーボベルデ', code: 'CV' }, { name: 'ガイアナ', code: 'GY' }, { name: 'カザフスタン', code: 'KZ' },
+            { name: 'カタール', code: 'QA' }, { name: 'カナダ', code: 'CA' }, { name: 'ガボン', code: 'GA' }, { name: 'カメルーン', code: 'CM' },
+            { name: '韓国', code: 'KR' }, { name: 'ガンビア', code: 'GM' }, { name: 'カンボジア', code: 'KH' }, { name: '北マケドニア', code: 'MK' },
+            { name: 'ギニア', code: 'GN' }, { name: 'ギニアビサウ', code: 'GW' }, { name: 'キプロス', code: 'CY' }, { name: 'キューバ', code: 'CU' },
+            { name: 'ギリシャ', code: 'GR' }, { name: 'キリバス', code: 'KI' }, { name: 'キルギス', code: 'KG' }, { name: 'グアテマラ', code: 'GT' },
+            { name: 'クウェート', code: 'KW' }, { name: 'グレナダ', code: 'GD' }, { name: 'クロアチア', code: 'HR' }, { name: 'ケニア', code: 'KE' },
+            { name: 'コートジボワール', code: 'CI' }, { name: 'コスタリカ', code: 'CR' }, { name: 'コソボ', code: 'XK' }, { name: 'コモロ', code: 'KM' },
+            { name: 'コロンビア', code: 'CO' }, { name: 'コンゴ共和国', code: 'CG' }, { name: 'コンゴ民主共和国', code: 'CD' }, { name: 'サウジアラビア', code: 'SA' },
+            { name: 'サモア', code: 'WS' }, { name: 'サントメ・プリンシペ', code: 'ST' }, { name: 'ザンビア', code: 'ZM' }, { name: 'サンマリノ', code: 'SM' },
+            { name: 'シエラレオネ', code: 'SL' }, { name: 'ジブチ', code: 'DJ' }, { name: 'ジャマイカ', code: 'JM' }, { name: 'ジョージア', code: 'GE' },
+            { name: 'シリア', code: 'SY' }, { name: 'シンガポール', code: 'SG' }, { name: 'ジンバブエ', code: 'ZW' }, { name: 'スイス', code: 'CH' },
+            { name: 'スウェーデン', code: 'SE' }, { name: 'スーダン', code: 'SD' }, { name: 'スペイン', code: 'ES' }, { name: 'スリナム', code: 'SR' },
+            { name: 'スリランカ', code: 'LK' }, { name: 'スロバキア', code: 'SK' }, { name: 'スロベニア', code: 'SI' }, { name: 'セーシェル', code: 'SC' },
+            { name: '赤道ギニア', code: 'GQ' }, { name: 'セネガル', code: 'SN' }, { name: 'セルビア', code: 'RS' }, { name: 'セントクリストファー・ネイビス', code: 'KN' },
+            { name: 'セントビンセント・グレナディーン', code: 'VC' }, { name: 'セントルシア', code: 'LC' }, { name: 'ソマリア', code: 'SO' }, { name: 'ソロモン諸島', code: 'SB' },
+            { name: 'タイ', code: 'TH' }, { name: 'タジキスタン', code: 'TJ' }, { name: 'タンザニア', code: 'TZ' }, { name: 'チェコ', code: 'CZ' },
+            { name: 'チャド', code: 'TD' }, { name: '中央アフリカ', code: 'CF' }, { name: '中国', code: 'CN' }, { name: 'チュニジア', code: 'TN' },
+            { name: '北朝鮮', code: 'KP' }, { name: 'チリ', code: 'CL' }, { name: 'ツバル', code: 'TV' }, { name: 'デンマーク', code: 'DK' },
+            { name: 'ドイツ', code: 'DE' }, { name: 'トーゴ', code: 'TG' }, { name: 'ドミニカ共和国', code: 'DO' }, { name: 'ドミニカ国', code: 'DM' },
+            { name: 'トリニダード・トバゴ', code: 'TT' }, { name: 'トルクメニスタン', code: 'TM' }, { name: 'トルコ', code: 'TR' }, { name: 'トンガ', code: 'TO' },
+            { name: 'ナイジェリア', code: 'NG' }, { name: 'ナウル', code: 'NR' }, { name: 'ナミビア', code: 'NA' }, { name: 'ニカラグア', code: 'NI' },
+            { name: 'ニジェール', code: 'NE' }, { name: '日本', code: 'JP' }, { name: 'ニュージーランド', code: 'NZ' }, { name: 'ネパール', code: 'NP' },
+            { name: 'ノルウェー', code: 'NO' }, { name: 'バーレーン', code: 'BH' }, { name: 'ハイチ', code: 'HT' }, { name: 'パキスタン', code: 'PK' },
+            { name: 'バチカン', code: 'VA' }, { name: 'パナマ', code: 'PA' }, { name: 'バヌアツ', code: 'VU' }, { name: 'バハマ', code: 'BS' },
+            { name: 'パプアニューギニア', code: 'PG' }, { name: 'パラオ', code: 'PW' }, { name: 'パラグアイ', code: 'PY' }, { name: 'バルバドス', code: 'BB' },
+            { name: 'パレスチナ', code: 'PS' }, { name: 'ハンガリー', code: 'HU' }, { name: 'バングラデシュ', code: 'BD' }, { name: 'フィジー', code: 'FJ' },
+            { name: 'フィリピン', code: 'PH' }, { name: 'フィンランド', code: 'FI' }, { name: 'ブータン', code: 'BT' }, { name: 'ブラジル', code: 'BR' },
+            { name: 'フランス', code: 'FR' }, { name: 'ブルガリア', code: 'BG' }, { name: 'ブルキナファソ', code: 'BF' }, { name: 'ブルネイ', code: 'BN' },
+            { name: 'ブルンジ', code: 'BI' }, { name: 'ベトナム', code: 'VN' }, { name: 'ベナン', code: 'BJ' }, { name: 'ベネズエラ', code: 'VE' },
+            { name: 'ベラルーシ', code: 'BY' }, { name: 'ベリーズ', code: 'BZ' }, { name: 'ペルー', code: 'PE' }, { name: 'ベルギー', code: 'BE' },
+            { name: 'ポーランド', code: 'PL' }, { name: 'ボスニア・ヘルツェゴビナ', code: 'BA' }, { name: 'ボツワナ', code: 'BW' }, { name: 'ボリビア', code: 'BO' },
+            { name: 'ポルトガル', code: 'PT' }, { name: 'ホンジュラス', code: 'HN' }, { name: 'マーシャル諸島', code: 'MH' }, { name: 'マダガスカル', code: 'MG' },
+            { name: 'マラウイ', code: 'MW' }, { name: 'マリ', code: 'ML' }, { name: 'マルタ', code: 'MT' }, { name: 'マレーシア', code: 'MY' },
+            { name: 'ミクロネシア', code: 'FM' }, { name: '南アフリカ', code: 'ZA' }, { name: '南スーダン', code: 'SS' }, { name: 'ミャンマー', code: 'MM' },
+            { name: 'メキシコ', code: 'MX' }, { name: 'モーリシャス', code: 'MU' }, { name: 'モーリタニア', code: 'MR' }, { name: 'モザンビーク', code: 'MZ' },
+            { name: 'モナコ', code: 'MC' }, { name: 'モルディブ', code: 'MV' }, { name: 'モルドバ', code: 'MD' }, { name: 'モロッコ', code: 'MA' },
+            { name: 'モンゴル', code: 'MN' }, { name: 'モンテネグロ', code: 'ME' }, { name: 'ヨルダン', code: 'JO' }, { name: 'ラオス', code: 'LA' },
+            { name: 'ラトビア', code: 'LV' }, { name: 'リトアニア', code: 'LT' }, { name: 'リビア', code: 'LY' }, { name: 'リヒテンシュタイン', code: 'LI' },
+            { name: 'リベリア', code: 'LR' }, { name: 'ルーマニア', code: 'RO' }, { name: 'ルクセンブルク', code: 'LU' }, { name: 'ルワンダ', code: 'RW' },
+            { name: 'レソト', code: 'LS' }, { name: 'レバノン', code: 'LB' }, { name: 'ロシア', code: 'RU' }
+        ];
 
-        function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-        function playTone(freq, type, duration, vol=0.1) {
-            if (!audioCtx) return;
-            const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-            osc.type = type; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-            gain.gain.setValueAtTime(vol, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
-            osc.connect(gain); gain.connect(audioCtx.destination);
-            osc.start(); osc.stop(audioCtx.currentTime + duration);
+        let timeLeft = 0;
+        let initialTime = 0;
+        let score = 0;
+        let mistakes = 0;
+        let currentCorrectCountry = null;
+        let gameActive = false;
+        let timerId = null;
+        let audioCtx = null;
+        let courseName = "";
+
+        // 音響システム（算数道場からそのまま継承）
+        function initAudio() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         }
+
         function playClappers() {
             if (!audioCtx) return;
             const now = audioCtx.currentTime;
             [0, 0.6].forEach(time => {
-                let osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-                osc.type = 'square'; osc.frequency.setValueAtTime(1200, now + time);
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(1200, now + time);
                 osc.frequency.exponentialRampToValueAtTime(800, now + time + 0.05);
-                gain.gain.setValueAtTime(0, now + time); gain.gain.linearRampToValueAtTime(0.3, now + time + 0.01);
+                gain.gain.setValueAtTime(0, now + time);
+                gain.gain.linearRampToValueAtTime(0.3, now + time + 0.01);
                 gain.gain.exponentialRampToValueAtTime(0.01, now + time + 0.1);
-                osc.connect(gain); gain.connect(audioCtx.destination);
-                osc.start(now + time); osc.stop(now + time + 0.15);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now + time);
+                osc.stop(now + time + 0.15);
             });
         }
 
-        const questionBank = [
-            { a: "日本", q: "🇯🇵", decoys: ["韓国", "中国", "台湾", "パラオ", "バングラデシュ"] },
-            { a: "韓国", q: "🇰🇷", decoys: ["日本", "中国", "台湾", "モンゴル", "カンボジア"] },
-            { a: "中国", q: "🇨🇳", decoys: ["台湾", "日本", "韓国", "ベトナム", "モンゴル"] },
-            { a: "アメリカ", q: "🇺🇸", decoys: ["イギリス", "カナダ", "オーストラリア", "ニュージーランド", "リベリア"] },
-            { a: "イギリス", q: "🇬🇧", decoys: ["アメリカ", "オーストラリア", "ニュージーランド", "アイスランド", "ノルウェー"] },
-            { a: "フランス", q: "🇫🇷", decoys: ["イタリア", "オランダ", "ベルギー", "ルクセンブルク", "ロシア"] },
-            { a: "イタリア", q: "🇮🇹", decoys: ["フランス", "メキシコ", "アイルランド", "ハンガリー", "ブルガリア"] },
-            { a: "ドイツ", q: "🇩🇪", decoys: ["ベルギー", "オランダ", "ルーマニア", "スペイン", "チャド"] },
-            { a: "ロシア", q: "🇷🇺", decoys: ["オランダ", "フランス", "スロバキア", "スロベニア", "セルビア"] },
-            { a: "カナダ", q: "🇨🇦", decoys: ["アメリカ", "スイス", "トルコ", "ペルー", "レバノン"] },
-            { a: "オーストラリア", q: "🇦🇺", decoys: ["ニュージーランド", "イギリス", "フィジー", "ツバル", "クック諸島"] },
-            { a: "ブラジル", q: "🇧🇷", decoys: ["アルゼンチン", "コロンビア", "ペルー", "チリ", "ジャマイカ"] },
-            { a: "アルゼンチン", q: "🇦🇷", decoys: ["ウルグアイ", "ブラジル", "ギリシャ", "ホンジュラス", "エルサルバドル"] },
-            { a: "インド", q: "🇮🇳", decoys: ["パキスタン", "バングラデシュ", "スリランカ", "ネパール", "ニジェール"] },
-            { a: "スペイン", q: "🇪🇸", decoys: ["ポルトガル", "ドイツ", "ルーマニア", "コロンビア", "アンドラ"] },
-            { a: "ポルトガル", q: "🇵🇹", decoys: ["スペイン", "フランス", "イタリア", "メキシコ", "モロッコ"] },
-            { a: "オランダ", q: "🇳🇱", decoys: ["ルクセンブルク", "ロシア", "フランス", "パラグアイ", "クロアチア"] },
-            { a: "スイス", q: "🇨🇭", decoys: ["カナダ", "デンマーク", "オーストリア", "トルコ", "赤十字"] },
-            { a: "スウェーデン", q: "🇸🇪", decoys: ["ノルウェー", "フィンランド", "デンマーク", "アイスランド", "ウクライナ"] },
-            { a: "ノルウェー", q: "🇳🇴", decoys: ["スウェーデン", "アイスランド", "デンマーク", "フィンランド", "イギリス"] },
-            { a: "エジプト", q: "🇪🇬", decoys: ["イラク", "シリア", "イエメン", "スーダン", "ヨルダン"] },
-            { a: "南アフリカ", q: "🇿🇦", decoys: ["ケニア", "ナイジェリア", "ジャマイカ", "ブラジル", "ジンバブエ"] },
-            { a: "トルコ", q: "🇹🇷", decoys: ["パキスタン", "チュニジア", "アルジェリア", "リビア", "マレーシア"] },
-            { a: "サウジアラビア", q: "🇸🇦", decoys: ["パキスタン", "トルコ", "イラン", "イラク", "クウェート"] },
-            { a: "タイ", q: "🇹🇭", decoys: ["ベトナム", "カンボジア", "マレーシア", "インドネシア", "コスタリカ"] },
-            { a: "ベトナム", q: "🇻🇳", decoys: ["中国", "台湾", "タイ", "ラオス", "モンゴル"] },
-            { a: "フィリピン", q: "🇵🇭", decoys: ["チェコ", "キューバ", "パナマ", "マレーシア", "インドネシア"] },
-            { a: "メキシコ", q: "🇲🇽", decoys: ["イタリア", "コロンビア", "ペルー", "スペイン", "ハンガリー"] },
-            { a: "ギリシャ", q: "🇬🇷", decoys: ["ウルグアイ", "アルゼンチン", "フィンランド", "ホンジュラス", "イスラエル"] },
-            { a: "ニュージーランド", q: "🇳🇿", decoys: ["オーストラリア", "イギリス", "フィジー", "ツバル", "クック諸島"] }
-        ];
-
-        function generateProblem() {
-            if (deck.length === 0) {
-                deck = [...questionBank];
-                deck.sort(() => Math.random() - 0.5);
-            }
-            currentQ = deck.pop();
-            document.getElementById('flag-image').textContent = currentQ.q;
-            makeChoices();
+        function playTone(freq, type, duration, vol=0.1) {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
         }
 
-        function makeChoices() {
-            let choices = [currentQ.a];
-            if (currentQ.decoys) {
-                let shuffledDecoys = [...currentQ.decoys].sort(() => Math.random() - 0.5);
-                choices.push(shuffledDecoys[0], shuffledDecoys[1], shuffledDecoys[2]);
-            }
-            
+        function getFlagEmoji(countryCode) {
+            return countryCode.toUpperCase().replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + 127397));
+        }
+
+        function generateProblem() {
             const grid = document.getElementById('choices-grid');
             grid.innerHTML = '';
-            
-            choices.sort(() => Math.random() - 0.5).forEach(choiceText => {
+
+            // ランダムに4カ国を選ぶ
+            const shuffled = [...countries].sort(() => Math.random() - 0.5);
+            const selected = shuffled.slice(0, 4);
+            currentCorrectCountry = selected[Math.floor(Math.random() * 4)];
+
+            // 巨大国旗をセット
+            document.getElementById('flag-display').textContent = getFlagEmoji(currentCorrectCountry.code);
+
+            // 選択肢ボタンを生成
+            selected.forEach(country => {
                 const btn = document.createElement('button');
                 btn.className = 'choice-btn';
-                // カッコを外していつものシンプルなテキストに戻しました
-                btn.textContent = choiceText;
-                btn.onclick = () => checkAnswer(choiceText, btn);
+                btn.textContent = country.name;
+                btn.onclick = () => checkAnswer(country, btn);
                 grid.appendChild(btn);
             });
         }
 
-        function checkAnswer(selected, btn) {
+        function checkAnswer(selectedCountry, btn) {
             if (!gameActive || btn.classList.contains('wrong')) return;
-            if (selected === currentQ.a) {
+
+            if (selectedCountry.code === currentCorrectCountry.code) {
+                // 正解の処理
                 score++;
                 playTone(660, 'sine', 0.1, 0.1); setTimeout(() => playTone(880, 'sine', 0.2, 0.1), 80);
                 document.getElementById('correct-count').textContent = score;
+                // 🌟 ここを「からあげ」に修正しました！
                 document.getElementById('feedback').textContent = "ナイス！からあげあげる！";
                 document.getElementById('feedback').style.color = "green";
-                generateProblem();
+                
+                // 次の問題へ
+                setTimeout(() => {
+                    generateProblem();
+                    document.getElementById('feedback').textContent = "";
+                }, 400);
+
             } else {
+                // 不正解の処理
                 mistakes++;
                 playTone(150, 'sawtooth', 0.3, 0.1);
                 document.getElementById('incorrect-count').textContent = mistakes;
-                document.getElementById('feedback').textContent = "ファイト！がんばれ！";
+                // 🌟 ここを「気合い」に修正しました！
+                document.getElementById('feedback').textContent = "がんばれ！気合いじゃ！";
                 document.getElementById('feedback').style.color = "red";
                 btn.classList.add('wrong');
             }
         }
 
         function startGame(mins) {
-            initAudio(); 
-            document.getElementById('display-course').textContent = mins + "分コース";
-            initialTime = mins * 60; timeLeft = initialTime;
+            initAudio();
+            courseName = mins + "分コース";
+            initialTime = mins * 60;
+            timeLeft = initialTime;
+            
             document.getElementById('start-screen').style.display = 'none';
             document.getElementById('game-container').style.display = 'block';
-            gameActive = true; score = 0; mistakes = 0;
-            document.getElementById('correct-count').textContent = "0"; document.getElementById('incorrect-count').textContent = "0";
+            
+            gameActive = true;
+            score = 0; mistakes = 0;
+            document.getElementById('correct-count').textContent = "0";
+            document.getElementById('incorrect-count').textContent = "0";
             document.getElementById('feedback').textContent = "";
-            deck = []; generateProblem();
+            
+            generateProblem();
+            
             if (timerId) clearInterval(timerId);
             timerId = setInterval(() => {
                 timeLeft--;
-                let m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
                 document.getElementById('timer').textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
                 if (timeLeft <= 0) endGame();
             }, 1000);
         }
 
         function endGame() {
-            gameActive = false; clearInterval(timerId); playClappers();
+            gameActive = false;
+            clearInterval(timerId);
+            playClappers(); 
+            
             document.getElementById('game-container').style.display = 'none';
             document.getElementById('result-screen').style.display = 'flex';
-            const today = new Date();
-            const dateStr = `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
-            document.getElementById('result-date').textContent = dateStr;
+            document.getElementById('display-course').textContent = courseName;
             document.getElementById('final-stats').textContent = `正解: ${score}問 / ミス: ${mistakes}回`;
-            const accuracy = score / (score + mistakes || 1);
+            
             let comment = "";
-            if (accuracy >= 0.95 && score >= 30) comment = "【世界一周マスター】<br>すばらしい！君はもう、世界の国旗博士だね！";
-            else if (score >= 20) comment = "【国旗トラベラー】<br>すごい速さ！その調子でどんどん覚えよう！";
-            else if (accuracy >= 0.9) comment = "【正確無比】<br>ミスがとても少ないね。似ている旗のひっかけに騙されない証拠だよ！";
-            else if (mistakes > 10) comment = "【不屈の心】<br>何度も間違えてもあきらめなかったね。間違えた旗は地図帳で確認だ！";
-            else comment = "【ナイスチャレンジ！】<br>修行おつかれさま！次はもっと高みを目指して頑張ろう！";
+            if (score >= 40) comment = "【世界一周マスター】<br>すばらしい！世界中の国旗を知り尽くしているね。きみは真の国旗博士だ！";
+            else if (score >= 20) comment = "【グローバルリーダー】<br>すごい速さで答えられたね！もっと色んな国を調べてみよう！";
+            else if (score >= 10) comment = "【世界への旅人】<br>色んな国旗を覚えられてきたね。その調子だよ！";
+            else comment = "【ナイスチャレンジ！】<br>修行おつかれさま！毎日少しずつ練習して、色んな国の名前と国旗を覚えよう！";
+            
             document.getElementById('result-comment').innerHTML = comment;
         }
     </script>
